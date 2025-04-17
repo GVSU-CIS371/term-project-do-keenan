@@ -2,7 +2,9 @@
   <div id="app">
     <SiteNavigation />
     <main>
-      <HomePage />
+      <router-view v-slot="{Component}">
+        <component :is="Component"/>
+      </router-view>
     </main>
   </div>
 </template>

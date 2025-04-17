@@ -1,9 +1,9 @@
 <template>
     <nav class="site-navigation">
       <div class="nav-container">
-        <div class="logo" @click="navigateTo('/')">
+        <router-link class="logo" to="/">
           <span class="logo-text">371 Hardware</span>
-        </div>
+        </router-link>
         
         <div class="search-bar">
           <input type="text" placeholder="Search for products..." v-model="searchQuery">
@@ -11,33 +11,41 @@
         </div>
         
         <div class="nav-links">
-          <div class="nav-link" @click="navigateTo('/hardware')">Hardware</div>
-          <div class="nav-link" @click="navigateTo('/games')">Games</div>
-          <div class="nav-link" @click="navigateTo('/accessories')">Accessories</div>
-          <div class="nav-link" @click="navigateTo('/deals')">Deals</div>
+          <router-link class="nav-link" to="/hardware">Hardware</router-link>
+          <router-link class="nav-link" to="/games">Games</router-link>
+          <router-link class="nav-link" to="/accessories">Accessories</router-link>
+          <router-link class="nav-link" to="/deals">Deals</router-link>
         </div>
         
         <div class="user-actions">
-          <div class="cart-icon" @click="navigateTo('/cart')">
+          <router-link class="cart-icon" to="/cart">
             <span class="material-icons">shopping_cart</span>
             <span class="cart-count" v-if="cartItemCount > 0">{{ cartItemCount }}</span>
-          </div>
+          </router-link>
           <div class="user-icon" @click="toggleUserMenu">
             <span class="material-icons">person</span>
             <div class="user-menu" v-if="showUserMenu">
-              <div class="menu-item" @click="navigateTo('/profile')">My Profile</div>
-              <div class="menu-item" @click="navigateTo('/orders')">Order History</div>
-              <div class="menu-item" @click="navigateTo('/games-library')">My Games</div>
+              <router-link class="menu-item" to="/profile">My Profile</router-link>
+              <router-link class="menu-item" to="/orders">Order History</router-link>
+              <router-link class="menu-item" to="/games-library">My Games</router-link>
               <div class="menu-item" v-if="isLoggedIn" @click="logout">Logout</div>
-              <div class="menu-item" v-else @click="navigateTo('/login')">Login</div>
+              <router-link class="menu-item" v-else to="/login">Login</router-link>
             </div>
           </div>
         </div>
       </div>
     </nav>
-  </template>
+</template>
   
-  <script>
+<script lang="ts">
+  import {useRouter} from 'vue-router';
+  const appnav = useRouter();
+  function navigateTo(pathNav) {
+        // Will be implemented with Vue Router
+        appnav.push({path: pathNav})
+        console.log(`Navigating to ${path}`)
+        this.showUserMenu = false
+      }
   export default {
     name: 'SiteNavigation',
     data() {
@@ -49,9 +57,10 @@
       }
     },
     methods: {
-      navigateTo(path) {
+      navigateTo(pathNav) {
         // Will be implemented with Vue Router
-        console.log(`Navigating to ${path}`)
+        nav.push({path: pathNav})
+        console.log(`Navigating to ${pathNav}`)
         this.showUserMenu = false
       },
       toggleUserMenu() {
@@ -65,9 +74,9 @@
       }
     }
   }
-  </script>
+</script>
   
-  <style scoped>
+<style scoped>
   .site-navigation {
     background-color: #1a1a2e;
     color: white;
@@ -133,6 +142,7 @@
   }
   
   .nav-link {
+    color: white;
     margin: 0 15px;
     cursor: pointer;
     position: relative;
@@ -160,6 +170,7 @@
   }
   
   .cart-icon, .user-icon {
+    color: white;
     position: relative;
     margin-left: 20px;
     cursor: pointer;
@@ -198,11 +209,13 @@
   }
   
   .menu-item {
-    padding: 12px 15px;
+    display: flex;
+    color: black;
+    padding: 15px 15px;
     transition: background-color 0.3s;
   }
   
   .menu-item:hover {
     background-color: #f5f5f5;
   }
-  </style>
+</style>
