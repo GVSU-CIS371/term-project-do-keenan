@@ -14,6 +14,20 @@ import Profile from './components/Profile.vue'
 import Games from './components/Games.vue'
 import OrderHistory from './components/OrderHistory.vue'
 import Cart from './components/Cart.vue'
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getFirestore } from "firebase/firestore";
+const firebaseConfig = {
+  apiKey: "AIzaSyCXCUVe43qi1sXa9MeYjxNica_mrylumYg",
+  authDomain: "do-keenan-final.firebaseapp.com",
+  projectId: "do-keenan-final",
+  storageBucket: "do-keenan-final.firebasestorage.app",
+  messagingSenderId: "416708817663",
+  appId: "1:416708817663:web:318c624639b64cc36252ca",
+  measurementId: "G-D4L5W1HXND"
+};
+
+// Initialize Firebase
 
 const app = createApp(App)
 
@@ -33,6 +47,8 @@ const routerRoute = [
 const myRouter = createRouter({history: createWebHashHistory(), routes: routerRoute})
 
 app.use(createPinia())
+
+initializeApp(firebaseConfig);
 
 app.use(myRouter)
 

@@ -44,6 +44,17 @@
   </template>
   
   <script>
+  import db from "../firestore";
+  import {
+  collection,
+  getDocs,
+  setDoc,
+  doc,
+  QuerySnapshot,
+  QueryDocumentSnapshot,
+  onSnapshot,
+  CollectionReference,
+} from "firebase/firestore";
   export default {
     name: 'GamesPage',
     data() {
@@ -55,13 +66,29 @@
     methods: {
       async fetchGames() {
         this.isLoading = true;
+        const gameCol = collection(db, "Games");
+
         
         try {
           // Simulate API delay
           await new Promise(resolve => setTimeout(resolve, 500));
           
+          //Trying to get items from firestore
+          getDocs(gameCol).then((qs) => {
+            this.games = qs.docs.map((doc) => ({
+              id: doc.id,
+              name: doc.data().name,
+              price: doc.data().price,
+              salePrice: doc.data().salePrice,
+              rating: doc.data().rating,
+              reviewCount: doc.data().reviewCount,
+              platform: doc.data().platform,
+              imageFile: doc.data().image
+            }))
+          })
+          
           // Dummy data for now
-          this.games = [
+          /*this.games = [
             {
               id: 1,
               name: 'Cyberpunk 2077',
@@ -132,7 +159,7 @@
               platform: 'PC',
               imageFile: 'baldurs-gate.jpg'
             }
-          ];
+          ];*/
           
         } catch (error) {
           console.error('Error fetching games:', error);
