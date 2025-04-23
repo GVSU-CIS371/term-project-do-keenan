@@ -1,16 +1,19 @@
 <template>
-    <header>
+    <h1 class="title">
         Login with Email and Password
-    </header>
-    <div>
+    </h1>
+    <div class="border">
+    <h3>
         Email
-    </div>
+    </h3>
     <input type="text" v-model="email" placeholder="Email" />
-    <div>
+    <h3 class="header">
         Password
-    </div>
+    </h3>
     <input type="text" v-model="password" placeholder="Password" />
-    <button v-on:click="signin">Login</button>
+    <button v-on:click="signin">Login</button>    
+    </div>
+    
 </template>
 
 <script>
@@ -73,3 +76,22 @@
 
 
 </script>
+
+<style scoped>
+.title{
+    text-align: center;
+    color: white;
+}
+.header{
+    text-align: center;
+    color: white;
+}
+.border{
+  background-color: #1a1a2e;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  margin-bottom: 40px;
+  border-radius: 8px;
+}
+</style>
