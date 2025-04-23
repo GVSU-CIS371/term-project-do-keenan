@@ -13,9 +13,11 @@
       <div class="product-grid">
         <div v-for="product in featuredProducts" :key="product.id" class="product-card">
           <img :src="getImageUrl(product)" :alt="product.name" class="product-image">
-          <h3>{{ product.name }}</h3>
-          <p class="product-category">{{ product.category }}</p>
-          <p class="product-price">${{ product.price.toFixed(2) }}</p>
+          <div class="product-details">
+            <h3 class="product-name">{{ product.name }}</h3>
+            <p class="product-category">{{ product.category }}</p>
+            <p class="product-price">${{ product.price.toFixed(2) }}</p>
+          </div>
           <button class="add-to-cart" @click="addToCart(product)">Add to Cart</button>
         </div>
       </div>
@@ -64,21 +66,21 @@ export default {
           name: 'AMD Ryzen 9 7950X CPU',
           category: 'Hardware',
           price: 549.99,
-          imageFile: 'ryzen7950x.jpg'
+          imageFile: 'ryzen9.jpg'
         },
         {
           id: 3,
           name: 'Cyberpunk 2077',
           category: 'Games',
           price: 59.99,
-          imageFile: 'cyberpunk2077.jpg'
+          imageFile: 'cyberpunk.jpg'
         },
         {
           id: 4,
           name: 'Mechanical Gaming Keyboard',
           category: 'Accessories',
           price: 129.99,
-          imageFile: 'mechanical-keyboard.jpg'
+          imageFile: 'logitech-keyboard.jpg'
         }
       ]
     }
@@ -90,40 +92,37 @@ export default {
       this.$router?.push(`/${category}`);
     },
     
-    // Improved image URL getter by product category
     getImageUrl(product) {
       if (!product.imageFile) {
         return 'https://placehold.co/300x200?text=Product';
       }
       
-      let path;
       let imageCollection;
       
       // Determine which image collection to use based on category
       switch(product.category.toLowerCase()) {
         case 'hardware':
-          path = `../assets/images/hardware/${product.imageFile}`;
           imageCollection = hardwareImages;
           break;
         case 'games':
-          path = `../assets/images/games/${product.imageFile}`;
           imageCollection = gameImages;
           break;
         case 'accessories':
-          path = `../assets/images/accessories/${product.imageFile}`;
           imageCollection = accessoryImages;
           break;
         default:
-          return 'https://placehold.co/300x200?text=Product';
+          return `https://placehold.co/300x200?text=${encodeURIComponent(product.name)}`;
       }
       
-      // Check if the image exists in the collection
-      if (imageCollection[path]) {
-        return imageCollection[path].default;
+      // Look for the correct path in the collection keys
+      for (const key in imageCollection) {
+        if (key.includes(product.imageFile)) {
+          return imageCollection[key].default;
+        }
       }
       
       // Fall back to a placeholder with the product name
-      return `https://placehold.co/300x200?text=${product.name.replace(/ /g, '+')}`;
+      return `https://placehold.co/300x200?text=${encodeURIComponent(product.name)}`;
     },
     
     addToCart(product) {
@@ -194,6 +193,10 @@ h2 {
   border-radius: 8px;
   padding: 20px;
   transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: white; /* Changed to white background */
 }
 
 .product-card:hover {
@@ -207,6 +210,18 @@ h2 {
   object-fit: cover;
   border-radius: 4px;
   margin-bottom: 15px;
+}
+
+.product-details {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-name {
+  margin-bottom: 5px;
+  /* Set a fixed height to handle multi-line titles */
+  min-height: 50px;
 }
 
 .product-category {
@@ -229,6 +244,7 @@ h2 {
   cursor: pointer;
   width: 100%;
   transition: background-color 0.3s;
+  margin-top: auto;
 }
 
 .add-to-cart:hover {

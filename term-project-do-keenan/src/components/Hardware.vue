@@ -28,16 +28,13 @@
               </div>
               <span class="review-count">({{ item.reviewCount }})</span>
             </div>
-            <div class="hardware-price-cart">
-              <div class="hardware-price">
-                <span v-if="item.salePrice" class="original-price">${{ item.price.toFixed(2) }}</span>
-                <span class="current-price">${{ (item.salePrice || item.price).toFixed(2) }}</span>
-              </div>
-              <button class="add-to-cart-btn" @click="addToCart(item)">
-                <span class="material-icons">shopping_cart</span>
-              </button>
+            <div class="hardware-price">
+              <span v-if="item.salePrice" class="original-price">${{ item.price.toFixed(2) }}</span>
+              <span class="current-price">${{ (item.salePrice || item.price).toFixed(2) }}</span>
             </div>
           </div>
+          <!-- Replace the cart button entirely -->
+          <button class="add-to-cart-button" @click="addToCart(item)">Add to Cart</button>
         </div>
       </div>
     </div>
@@ -268,11 +265,9 @@ export default {
   color: #666;
 }
 
-.hardware-price-cart {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.hardware-price {
   margin-top: auto;
+  margin-bottom: 15px;
 }
 
 .original-price {
@@ -287,25 +282,33 @@ export default {
   font-size: 1.1rem;
 }
 
+/* Completely remove the original add-to-cart-btn style */
 .add-to-cart-btn {
+  display: none !important;
+}
+
+/* Add the new button style with a different class name to avoid conflicts */
+.add-to-cart-button {
   background-color: #4caf50;
   color: white;
   border: none;
-  width: 36px;
-  height: 36px;
+  padding: 8px 15px;
   border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
+  width: calc(100% - 30px);
+  margin: 0 15px 15px 15px;
+  font-size: 1rem;
   transition: background-color 0.3s;
+  text-align: center;
+  display: block;
 }
 
-.add-to-cart-btn:hover {
+.add-to-cart-button:hover {
   background-color: #388e3c;
 }
 
+/* Override any material icon styles */
 .material-icons {
-  font-size: 20px;
+  display: none !important;
 }
 </style>
