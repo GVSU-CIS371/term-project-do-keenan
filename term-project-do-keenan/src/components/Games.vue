@@ -45,7 +45,10 @@ import db from "../firestore";
 import {
   collection,
   getDocs,
+  doc,
+  setDoc
 } from "firebase/firestore";
+import {getAuth} from "firebase/auth";
 
 // Import all game images at once
 const imageFiles = import.meta.glob('../assets/images/games/*.jpg', { eager: true });
@@ -116,8 +119,30 @@ export default {
       return title.substring(0, 38) + '...';
     },
     addToCart(game) {
-      console.log('Added to cart:', game);
-      alert(`${game.name} added to cart!`);
+        console.log(game.name);
+        console.log(game.rating);
+        const auth = getAuth();
+        auth.onAuthStateChanged((user) => {
+            this.isLogged = !!user;
+            if(this.isLogged){
+            const id = game.id;
+            const item = doc(db, `Users/${user.uid}/ownedItems`, id)
+            setDoc(item, {
+              name: game.name,
+              rating: game.rating,
+              image: game.image,
+              reviewCount: game.reviewCount
+            });
+
+            console.log(user.uid); 
+            console.log('Added to cart:', game);
+            alert(`${game.name} added to cart!`);
+            }
+            else{
+              alert(`Please Log in first`)
+            }
+        });
+      
     }
   },
   mounted() {

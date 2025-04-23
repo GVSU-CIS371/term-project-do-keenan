@@ -43,9 +43,12 @@
 
 <script>
 import db from "../firestore";
+import {getAuth} from "firebase/auth"
 import {
   collection,
   getDocs,
+  doc,
+  setDoc
 } from "firebase/firestore";
 
 // Import all hardware images at once
@@ -118,8 +121,27 @@ export default {
       return title.substring(0, 38) + '...';
     },
     addToCart(item) {
-      console.log('Added to cart:', item);
-      alert(`${item.name} added to cart!`);
+      const auth = getAuth();
+        auth.onAuthStateChanged((user) => {
+            this.isLogged = !!user;
+            if(this.isLogged){
+            const id = item.id;
+            const hardware = doc(db, `Users/${user.uid}/ownedItems`, id)
+            setDoc(hardware, {
+              name: item.name,
+              rating: item.rating,
+              image: item.imageFile,
+              reviewCount: item.reviewCount
+            });
+
+            console.log(user.uid); 
+            console.log('Added to cart:', item);
+            alert(`${item.name} added to cart!`);
+            }
+            else{
+              alert(`Please Log in first`)
+            }
+        });
     }
   },
   mounted() {
