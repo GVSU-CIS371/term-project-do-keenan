@@ -19,11 +19,11 @@
       
       <div class="user-actions">
         <router-link class="cart-icon" to="/cart">
-          <span class="material-icons">shopping_cart</span>
+          <span class="material-icons">Shopping Cart</span>
           <span class="cart-count" v-if="cartItemCount > 0">{{ cartItemCount }}</span>
         </router-link>
         <div class="user-icon" @click="toggleUserMenu">
-          <span class="material-icons">person</span>
+          <span class="material-icons">Profile</span>
           <div class="user-menu" v-if="showUserMenu">
             <router-link class="menu-item" to="/profile">My Profile</router-link>
             <router-link class="menu-item" to="/orders">Order History</router-link>

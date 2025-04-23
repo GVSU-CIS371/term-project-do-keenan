@@ -87,80 +87,6 @@
             }))
           })
           
-          // Dummy data for now
-          /*this.games = [
-            {
-              id: 1,
-              name: 'Cyberpunk 2077',
-              price: 59.99,
-              salePrice: 39.99,
-              rating: 4,
-              reviewCount: 1250,
-              platform: 'PC',
-              imageFile: 'cyberpunk.jpg'
-            },
-            {
-              id: 2,
-              name: 'Elden Ring',
-              price: 59.99,
-              salePrice: null,
-              rating: 5,
-              reviewCount: 3872,
-              platform: 'PC',
-              imageFile: 'elden-ring.jpg'
-            },
-            {
-              id: 3,
-              name: 'Horizon Forbidden West',
-              price: 69.99,
-              salePrice: 49.99,
-              rating: 4,
-              reviewCount: 1842,
-              platform: 'PlayStation 5',
-              imageFile: 'horizon.jpg'
-            },
-            {
-              id: 4,
-              name: 'FIFA 23',
-              price: 59.99,
-              salePrice: null,
-              rating: 4,
-              reviewCount: 958,
-              platform: 'PC',
-              imageFile: 'fifa23.jpg'
-            },
-            {
-              id: 5,
-              name: 'Starfield',
-              price: 69.99,
-              salePrice: null,
-              rating: 4.5,
-              reviewCount: 1324,
-              platform: 'Xbox Series X',
-              imageFile: 'starfield.jpg'
-            },
-            {
-              id: 6,
-              name: 'The Legend of Zelda: Tears of the Kingdom',
-              price: 59.99,
-              salePrice: null,
-              rating: 5,
-              reviewCount: 4251,
-              platform: 'Nintendo Switch',
-              imageFile: 'zelda.jpg'
-            },
-            {
-              id: 7,
-              name: 'Baldur\'s Gate 3',
-              price: 59.99,
-              salePrice: null,
-              rating: 5,
-              reviewCount: 3762,
-              platform: 'PC',
-              imageFile: 'baldurs-gate.jpg'
-            }
-          ];*/
-          
         } catch (error) {
           console.error('Error fetching games:', error);
         } finally {
@@ -284,7 +210,6 @@
     font-size: 1rem;
     margin-bottom: 8px;
     height: 40px;
-    /* Simple solution without webkit properties */
     overflow: hidden;
     position: relative;
     max-height: 2.4em; /* Approximately 2 lines of text */
